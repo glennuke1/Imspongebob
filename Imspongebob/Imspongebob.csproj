@@ -100,6 +100,6 @@
   <Import Project="..\packages\Microsoft.NETFramework.ReferenceAssemblies.net48.1.0.0\build\Microsoft.NETFramework.ReferenceAssemblies.net48.targets" Condition="Exists('..\packages\Microsoft.NETFramework.ReferenceAssemblies.net48.1.0.0\build\Microsoft.NETFramework.ReferenceAssemblies.net48.targets')" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y /E /I /C /Q "$(TargetDir)*" "$(ProjectDir)Builds\"
-powershell -Command "Compress-Archive -Path '$(ProjectDir)Builds\*' -DestinationPath '$(ProjectDir)Builds\$(ProjectName).zip' -Force"</PostBuildEvent>
+powershell -Command "Compress-Archive -Path '$(ProjectDir)Builds\*' -DestinationPath '$(ProjectDir)Builds\FinishedZip\$(ProjectName).zip' -Force"</PostBuildEvent>
   </PropertyGroup>
 </Project>
