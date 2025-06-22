@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.35706.149
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imspongebob", "Imspongebob\Imspongebob.csproj", "{74A4A4F1-EE41-43B4-8E33-BD1910DC5085}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImSpongebobInstaller", "ImSpongebobInstaller\ImSpongebobInstaller.csproj", "{998A4E32-B6F0-4A9C-BCE9-FBF6F615F715}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74A4A4F1-EE41-43B4-8E33-BD1910DC5085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74A4A4F1-EE41-43B4-8E33-BD1910DC5085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74A4A4F1-EE41-43B4-8E33-BD1910DC5085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74A4A4F1-EE41-43B4-8E33-BD1910DC5085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{998A4E32-B6F0-4A9C-BCE9-FBF6F615F715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{998A4E32-B6F0-4A9C-BCE9-FBF6F615F715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{998A4E32-B6F0-4A9C-BCE9-FBF6F615F715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{998A4E32-B6F0-4A9C-BCE9-FBF6F615F715}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {42B91942-ADD0-4790-B049-3D25557C4FFB}
+	EndGlobalSection
+EndGlobal
