@@ -16,7 +16,7 @@ namespace ImSpongebobInstaller
 
         static void Main(string[] args)
         {
-            installationDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "/ImSpongebob";
+            installationDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/ImSpongebob";
 
             if (!Directory.Exists(installationDirectory))
             {
@@ -25,14 +25,20 @@ namespace ImSpongebobInstaller
 
             using (var client = new WebClient())
             {
-                client.DownloadFile("https://github.com/glennuke1/Imspongebob/raw/refs/heads/master/Imspongebob/Builds/FinishedZip/Imspongebob.zip", "Imspongebob.zip");
+                client.DownloadFile("https://github.com/glennuke1/Imspongebob/raw/refs/heads/master/Imspongebob/Builds/FinishedZip/Imspongebob.zip", installationDirectory + "/Imspongebob.zip");
             }
 
-            ZipFile zip = ZipFile.Read("Imspongebob.zip");
+            ZipFile zip = ZipFile.Read(installationDirectory + "/Imspongebob.zip");
             zip.ExtractAll(installationDirectory, ExtractExistingFileAction.OverwriteSilently);
             zip.Dispose();
 
-            Process.Start(installationDirectory + "/Imspongebob.exe");
+            ProcessStartInfo processStartInfo = new ProcessStartInfo()
+            {
+                WorkingDirectory = installationDirectory,
+                FileName = installationDirectory + "/Imspongebob.exe",
+                UseShellExecute = true
+            };
+            Process.Start(processStartInfo);
         }
     }
 }
