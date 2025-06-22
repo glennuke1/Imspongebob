@@ -13,24 +13,41 @@ namespace ImSpongebobInstaller
     class Program
     {
         static string installationDirectory;
+        static string tempDirectory;
 
         static void Main(string[] args)
         {
             installationDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/ImSpongebob";
+            tempDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/ImSpongebob/Temp";
 
             if (!Directory.Exists(installationDirectory))
             {
                 Directory.CreateDirectory(installationDirectory);
             }
 
-            using (var client = new WebClient())
+            if (!Directory.Exists(tempDirectory))
             {
-                client.DownloadFile("https://github.com/glennuke1/Imspongebob/raw/refs/heads/master/Imspongebob/Builds/FinishedZip/Imspongebob.zip", installationDirectory + "/Imspongebob.zip");
+                Directory.CreateDirectory(tempDirectory);
             }
 
-            ZipFile zip = ZipFile.Read(installationDirectory + "/Imspongebob.zip");
-            zip.ExtractAll(installationDirectory, ExtractExistingFileAction.OverwriteSilently);
+            using (var client = new WebClient())
+            {
+                client.DownloadFile("https://github.com/glennuke1/Imspongebob/raw/refs/heads/master/Imspongebob/Builds/FinishedZip/Imspongebob.zip", tempDirectory + "/Imspongebob.zip");
+            }
+
+            ZipFile zip = ZipFile.Read(tempDirectory + "/Imspongebob.zip");
+            zip.ExtractAll(tempDirectory, ExtractExistingFileAction.OverwriteSilently);
             zip.Dispose();
+
+            if (File.Exists(installationDirectory + "/config.txt"))
+            {
+                File.Delete(tempDirectory + "/config.txt");
+            }
+
+            if (File.Exists(installationDirectory + "/contents.txt"))
+            {
+                File.Delete(tempDirectory + "/contents.txt");
+            }
 
             ProcessStartInfo processStartInfo = new ProcessStartInfo()
             {
