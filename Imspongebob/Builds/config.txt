@@ -1,0 +1,6 @@
+60	# Minimum delay
+3600	# Maximum delay
+Spongebob	# Title
+30	# Title font size
+14	# Content font size
+Times New Roman	# Text font family name (all available fonts are in available_fonts.txt)
