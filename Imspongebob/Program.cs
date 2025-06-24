@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
@@ -23,10 +22,6 @@ namespace Imspongebob
 
         static void Main(string[] args)
         {
-            RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-            string exePath = "\"" + System.Reflection.Assembly.GetExecutingAssembly().Location + "\"";
-            rk.SetValue("Spongebob", exePath);
-
             if (File.Exists("config.txt"))
             {
                 string[] contents = File.ReadAllLines("config.txt");
