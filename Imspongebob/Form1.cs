@@ -74,7 +74,7 @@ namespace Imspongebob
             popupNotifier.IsRightToLeft = false;
             popupNotifier.TitleFont = new Font(font, titleFont);
             popupNotifier.ContentFont = new Font(font, contentFont);
-            popupNotifier.Image = Image.FromFile("hqdefault.jpg");
+            popupNotifier.Image = File.Exists("custom.jpg") ? Image.FromFile("custom.jpg") : Image.FromFile("hqdefault.jpg");
             popupNotifier.ImageSize = new Size(120, 100);
             popupNotifier.Delay = 1000000000;
             popupNotifier.Popup();

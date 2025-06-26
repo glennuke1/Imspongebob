@@ -19,6 +19,9 @@ namespace Imspongebob
         static int neededToWaitFor;
 
         static bool cancelWaiting;
+        static NotifyIcon notifyIcon;
+
+        static Form hiddenForm;
 
         static void Main(string[] args)
         {
@@ -67,32 +70,71 @@ namespace Imspongebob
 
             File.WriteAllText("available_fonts.txt", allFonts);
 
-            player.Play();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Form1 form = new Form1();
-            Application.Run(form);
-            Run();
+
+            notifyIcon = new NotifyIcon()
+            {
+                Icon = new Icon("hqdefault.ico"),
+                Text = "Im Spongebob",
+                Visible = true
+            };
+
+            ContextMenuStrip menu = new ContextMenuStrip();
+            menu.Items.Add("Exit", null, (s, e) => Application.Exit());
+            notifyIcon.ContextMenuStrip = menu;
+
+            Thread logicThread = new Thread(LoopLogic) { IsBackground = true };
+            logicThread.Start();
+
+            hiddenForm = new Form();
+            hiddenForm.ShowInTaskbar = false;
+            hiddenForm.WindowState = FormWindowState.Minimized;
+            hiddenForm.Load += (s, e) => hiddenForm.Hide();
+
+            hiddenForm.Show();
+            var handle = hiddenForm.Handle;
+            hiddenForm.Hide();
+
+            player.Play();
+            ShowWindow();
+
+            Application.Run(hiddenForm);
         }
 
-        static void Run()
+        static void ShowWindow()
         {
-            neededToWaitFor = random.Next(min * 1000, max * 1000);
-            while (waitedFor < neededToWaitFor)
+            Form1 form = new Form1();
+            form.Shown += (s, e) => form.Close();
+            form.Show();
+        }
+
+        static void LoopLogic()
+        {
+            while (true)
             {
-                Thread.Sleep(100);
-                waitedFor += 100;
-                if (cancelWaiting)
+                neededToWaitFor = random.Next(min * 1000, max * 1000);
+                waitedFor = 0;
+                cancelWaiting = false;
+
+                while (waitedFor < neededToWaitFor)
                 {
-                    waitedFor = neededToWaitFor;
+                    Thread.Sleep(100);
+                    waitedFor += 100;
+                    if (cancelWaiting) break;
+                }
+
+                if (!cancelWaiting)
+                {
+                    player.Play();
+                    hiddenForm.Invoke(new Action(() =>
+                    {
+                        Form1 form = new Form1();
+                        form.Shown += (s, e) => form.Close();
+                        form.Show();
+                    }));
                 }
             }
-            waitedFor = 0;
-            cancelWaiting = false;
-            player.Play();
-            Form1 form = new Form1();
-            Application.Run(form);
-            Run();
         }
 
         private static void OnChanged(object sender, FileSystemEventArgs e)
